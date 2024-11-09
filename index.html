@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Cookie Example</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f4f4f9;
+            }
+            .container {
+                text-align: center;
+                max-width: 300px;
+                padding: 20px;
+                background-color: #fff;
+                border-radius: 8px;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            }
+            .btn {
+                margin-top: 10px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Cookie Demo</h2>
+            <p id="cookieValue">No cookie set</p>
+            <input type="text" id="cookieInput" placeholder="Enter a value" />
+            <button class="btn" onclick="setCookie()">Set Cookie</button>
+        </div>
+
+        <script>
+            // set the cookie
+            function setCookie() {
+                const value = document.getElementById("cookieInput").value;
+                document.cookie = `userValue=${value}; path=/; max-age=86400`; // 1 day expiration
+                displayCookie();
+            }
+
+            // get the cookie
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(";").shift();
+                return null;
+            }
+
+            // display cookie value
+            function displayCookie() {
+                const cookieValue = getCookie("userValue");
+                document.getElementById("cookieValue").textContent = cookieValue ? `Cookie Value: ${cookieValue}` : "No cookie set";
+            }
+
+            // display cookie on page load
+            window.onload = displayCookie;
+        </script>
+    </body>
+</html>
